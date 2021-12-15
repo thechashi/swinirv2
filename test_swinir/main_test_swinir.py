@@ -81,7 +81,7 @@ def main():
             ouptut = output[0]
         #output = (output * 255.0).round().astype(np.uint8)  # float32 to uint8
         output = (output * (maxl-minl))+minl
-        cv2.imwrite(f'{save_dir}/{imgname}_SwinIR.png', output)
+        cv2.imwrite(f'{save_dir}/{imgname}_SwinIR.png', output.reshape((output.shape[0], output.shape[1], 1)))
 
         # evaluate psnr/ssim/psnr_b
         if img_gt is not None:
