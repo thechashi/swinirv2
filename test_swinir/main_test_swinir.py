@@ -78,7 +78,7 @@ def main():
         if output.ndim == 3:
             print('3d output image')
             #output = np.transpose(output[[2, 1, 0], :, :], (1, 2, 0))  # CHW-RGB to HCW-BGR
-            ouptut = output[0]
+            output = output[0]
         #output = (output * 255.0).round().astype(np.uint8)  # float32 to uint8
         output = (output * (maxl-minl))+minl
         cv2.imwrite(f'{save_dir}/{imgname}_SwinIR.png', output.reshape((output.shape[0], output.shape[1], 1)))
