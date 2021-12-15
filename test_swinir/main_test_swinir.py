@@ -222,11 +222,13 @@ def get_image_pair(args, path):
                 img_gt = img_gt.f.arr_0
                 min_, max_ = img_gt.min(), img_gt.max()
                 img_gt = (img_gt - min_)/(max_-min_)
+                img_gt = img_gt.reshape((img_gt.shape[0], img_gt.shape[1], 1))
                 
                 img_lq = np.load(f'{args.folder_lq}/{imgname}x{args.scale}{imgext}')
                 img_lq = img_lq.f.arr_0
                 min_, max_ = img_lq.min(), img_lq.max()
                 img_lq = (img_lq - min_)/(max_-min_)
+                img_lq = img_lq.reshape((img_lq.shape[0], img_lq.shape[1], 1))
         else:
             img_gt = cv2.imread(path, cv2.IMREAD_COLOR).astype(np.float32) / 255.
             img_lq = cv2.imread(f'{args.folder_lq}/{imgname}x{args.scale}{imgext}', cv2.IMREAD_COLOR).astype(
