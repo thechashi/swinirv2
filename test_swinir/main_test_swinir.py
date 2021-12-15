@@ -58,7 +58,7 @@ def main():
 
     for idx, path in enumerate(sorted(glob.glob(os.path.join(folder, '*')))):
         # read image
-        imgname, img_lq, img_gt = get_image_pair(args, path)  # image to HWC-BGR, float32
+        imgname, img_lq, img_gt, minh, maxh, minl, maxl = get_image_pair(args, path)  # image to HWC-BGR, float32
         img_lq = np.transpose(img_lq if img_lq.shape[2] == 1 else img_lq[:, :, [2, 1, 0]], (2, 0, 1))  # HCW-BGR to CHW-RGB
         img_lq = torch.from_numpy(img_lq).float().unsqueeze(0).to(device)  # CHW-RGB to NCHW-RGB
 
@@ -76,13 +76,17 @@ def main():
         # save image
         output = output.data.squeeze().float().cpu().clamp_(0, 1).numpy()
         if output.ndim == 3:
-            output = np.transpose(output[[2, 1, 0], :, :], (1, 2, 0))  # CHW-RGB to HCW-BGR
-        output = (output * 255.0).round().astype(np.uint8)  # float32 to uint8
+            print('3d output image')
+            #output = np.transpose(output[[2, 1, 0], :, :], (1, 2, 0))  # CHW-RGB to HCW-BGR
+            ouptut = output[0]
+        #output = (output * 255.0).round().astype(np.uint8)  # float32 to uint8
+        output = (output * (maxl-minl))+minl
         cv2.imwrite(f'{save_dir}/{imgname}_SwinIR.png', output)
 
         # evaluate psnr/ssim/psnr_b
         if img_gt is not None:
-            img_gt = (img_gt * 255.0).round().astype(np.uint8)  # float32 to uint8
+            #img_gt = (img_gt * 255.0).round().astype(np.uint8)  # float32 to uint8
+            img_gt = (img_gt * (maxh-minh)) + minh
             img_gt = img_gt[:h_old * args.scale, :w_old * args.scale, ...]  # crop gt
             img_gt = np.squeeze(img_gt)
 
@@ -220,14 +224,14 @@ def get_image_pair(args, path):
         if 'npz' in imgext:
                 img_gt = np.load(path)
                 img_gt = img_gt.f.arr_0
-                min_, max_ = img_gt.min(), img_gt.max()
-                img_gt = (img_gt - min_)/(max_-min_)
+                minh_, maxh_ = img_gt.min(), img_gt.max()
+                img_gt = (img_gt - minh_)/(maxh_-minh_)
                 img_gt = img_gt.reshape((img_gt.shape[0], img_gt.shape[1], 1))
                 
                 img_lq = np.load(f'{args.folder_lq}/{imgname}x{args.scale}{imgext}')
                 img_lq = img_lq.f.arr_0
-                min_, max_ = img_lq.min(), img_lq.max()
-                img_lq = (img_lq - min_)/(max_-min_)
+                minl_, maxl_ = img_lq.min(), img_lq.max()
+                img_lq = (img_lq - minl_)/(maxl_-minl_)
                 img_lq = img_lq.reshape((img_lq.shape[0], img_lq.shape[1], 1))
         else:
             img_gt = cv2.imread(path, cv2.IMREAD_COLOR).astype(np.float32) / 255.
@@ -262,7 +266,8 @@ def get_image_pair(args, path):
         img_lq = cv2.imdecode(encimg, 0)
         img_gt = np.expand_dims(img_gt, axis=2).astype(np.float32) / 255.
         img_lq = np.expand_dims(img_lq, axis=2).astype(np.float32) / 255.
-
+    if 'npz' in imgext:
+        return imgname, img_lq, img_gt, minh_, maxh_, minl_, maxl_
     return imgname, img_lq, img_gt
 
 
