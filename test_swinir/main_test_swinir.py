@@ -252,6 +252,8 @@ def get_image_pair(args, path):
 
     return imgname, img_lq, img_gt
 
+def get_image_pair()
+
 
 def test(img_lq, model, args, window_size):
     if args.tile is None:
