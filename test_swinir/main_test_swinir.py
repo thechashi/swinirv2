@@ -223,7 +223,7 @@ def get_image_pair(args, path):
                 min_, max_ = img_gt.min(), img_gt.max()
                 img_gt = (img_gt - min_)/(max_-min_)
                 
-                img_lq = np.load('{args.folder_lq}/{imgname}x{args.scale}{imgext}')
+                img_lq = np.load(f'{args.folder_lq}/{imgname}x{args.scale}{imgext}')
                 img_lq = img_lq.f.arr_0
                 min_, max_ = img_lq.min(), img_lq.max()
                 img_lq = (img_lq - min_)/(max_-min_)
