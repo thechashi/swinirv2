@@ -40,12 +40,13 @@ def resize_all(input_path, output_path):
     print('Processing HR images...')
     # making HR images
     for filename in os.listdir(input_path):
-        file_path = os.path.join(input_path, filename)
-        img = get_npz(file_path)
-        shape = img.shape
-        new_shape = ((shape[1]//24)*24, (shape[0]//24)*24)
-        img = transform(img, new_shape)
-        np.savez(os.path.join(output_path + folders[0], filename), img)
+        if '.npz' in filename:
+            file_path = os.path.join(input_path, filename)
+            img = get_npz(file_path)
+            shape = img.shape
+            new_shape = ((shape[1]//24)*24, (shape[0]//24)*24)
+            img = transform(img, new_shape)
+            np.savez(os.path.join(output_path + folders[0], filename), img)
     sizes = [2, 3, 4, 8]
     # making LR 2, 3, 4, 8 images
     print('Processing LR images...')
