@@ -37,7 +37,7 @@ def resize_all(input_path, output_path):
     for folder in folders:
         if not os.path.exists(output_path + folder):
             os.makedirs(output_path + folder)
-    
+    print('Processing HR images...')
     # making HR images
     for filename in os.listdir(input_path):
         file_path = os.path.join(input_path, filename)
@@ -48,6 +48,7 @@ def resize_all(input_path, output_path):
         np.savez(os.path.join(output_path + folders[0], filename), img)
     sizes = [2, 3, 4, 8]
     # making LR 2, 3, 4, 8 images
+    print('Processing LR images...')
     for filename in os.listdir(output_path + folders[0]):
         file_path = os.path.join(output_path + folders[0], filename)
         img = get_npz(file_path)
@@ -60,7 +61,7 @@ def resize_all(input_path, output_path):
             idx += 1
         
 if __name__ == "__main__":
-    resize_all('../testsets/code_test/actual',  '../testsets/code_test')
+    resize_all('../testsets/act',  '../testsets/act_2')
 # =============================================================================
 #     filename = '../testsets/code_test/LR_bicubic/X8/0x8.npz'
 #     view_npz(filename)
