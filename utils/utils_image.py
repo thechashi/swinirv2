@@ -254,6 +254,10 @@ def uint2single(img):
 
     return np.float32(img/255.)
 
+def thridNormaliztion(img):
+    max_ = max(img.min(), img.max(), key=abs)
+    return np.float(img/max_*0.33)
+
 
 def single2uint(img):
 

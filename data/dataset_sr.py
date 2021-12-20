@@ -40,7 +40,8 @@ class DatasetSR(data.Dataset):
         # ------------------------------------
         H_path = self.paths_H[index]
         img_H = util.imread_uint(H_path, self.n_channels)
-        img_H = util.uint2single(img_H)
+        #img_H = util.uint2single(img_H)
+        img_H = util.thridNormaliztion(img_H)
 
         # ------------------------------------
         # modcrop
@@ -56,7 +57,8 @@ class DatasetSR(data.Dataset):
             # --------------------------------
             L_path = self.paths_L[index]
             img_L = util.imread_uint(L_path, self.n_channels)
-            img_L = util.uint2single(img_L)
+            #img_L = util.uint2single(img_L)
+            img_L = util.thridNormaliztion(img_L)
 
         else:
             # --------------------------------
