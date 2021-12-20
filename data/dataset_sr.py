@@ -72,7 +72,8 @@ class DatasetSR(data.Dataset):
         # ------------------------------------
         if self.opt['phase'] == 'train':
 
-            H, W, C = img_L.shape
+            #H, W, C = img_L.shape
+            H, W = img_L.shape
 
             # --------------------------------
             # randomly crop the L patch
