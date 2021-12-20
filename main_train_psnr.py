@@ -107,7 +107,7 @@ def main(json_path='options/train_msrresnet_psnr.json'):
 
     '''
     # ----------------------------------------
-    # Step--2 (creat dataloader)
+    # Step--2 (create dataloader)
     # ----------------------------------------
     '''
 

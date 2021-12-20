@@ -4,8 +4,8 @@
   , "gpu_ids": [0,1,2,3,4,5,6,7]
   , "dist": true
 
-  , "scale": 2       // 2 | 3 | 4 | 8
-  , "n_channels": 3  // broadcast to "datasets", 1 for grayscale, 3 for color
+  , "scale": 4       // 2 | 3 | 4 | 8
+  , "n_channels": 1  // broadcast to "datasets", 1 for grayscale, 3 for color
 
   , "path": {
     "root": "superresolution"            // "denoising" | "superresolution" | "dejpeg"
@@ -17,8 +17,8 @@
     "train": {
       "name": "train_dataset"           // just name
       , "dataset_type": "sr"         // "dncnn" | "dnpatch" | "fdncnn" | "ffdnet" | "sr" | "srmd" | "dpsr" | "plain" | "plainpatch" | "jpeg"
-      , "dataroot_H": "trainsets/DIV2K/DIV2K_train_HR"// path of H training dataset. DIV2K (800 training images)
-      , "dataroot_L": "trainsets/DIV2K/DIV2K_train_LR_bicubic/X2"              // path of L training dataset
+      , "dataroot_H": "trainsets/earth1_ds/HR" // path of H training dataset. DIV2K (800 training images)
+      , "dataroot_L": "trainsets/earth1_ds/LR_bicubic/X4"              // path of L training dataset
 
       , "H_size": 96                   // 96/144|192/384 | 128/192/256/512. LR patch size is set to 48 or 64 when compared with RCAN or RRDB.
 
@@ -29,8 +29,8 @@
     , "test": {
       "name": "test_dataset"            // just name
       , "dataset_type": "sr"         // "dncnn" | "dnpatch" | "fdncnn" | "ffdnet" | "sr" | "srmd" | "dpsr" | "plain" | "plainpatch" | "jpeg"
-      , "dataroot_H": "testsets/Set5/HR"  // path of H testing dataset
-      , "dataroot_L": "testsets/Set5/LR_bicubic/X2"              // path of L testing dataset
+      , "dataroot_H": "test_swinir/testsets/slices/HR"  // path of H testing dataset
+      , "dataroot_L": "test_swinir/testsets/slices/LR_bicubic/X4"              // path of L testing dataset
 
     }
   }
