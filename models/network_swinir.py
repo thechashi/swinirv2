@@ -803,7 +803,8 @@ class SwinIR(nn.Module):
         return x
 
     def forward(self, x):
-        H, W = x.shape[2:]
+        #H, W = x.shape[2:]
+        H, W = x.shape[1:]
         x = self.check_image_size(x)
 
         self.mean = self.mean.type_as(x)
