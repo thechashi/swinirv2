@@ -16,6 +16,7 @@ matplotlib = "^3.5.1"
 timm = "^0.4.12"
 requests = "^2.26.0"
 gpustat = "^0.6.0"
+spyder = "^5.2.1"
 
 [tool.poetry.dev-dependencies]
 
