@@ -312,8 +312,8 @@ def tensor2uint(img):
 
 # convert single (HxWxC) to 3-dimensional torch tensor
 def single2tensor3(img):
-    #return torch.from_numpy(np.ascontiguousarray(img)).float()
-    return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float()
+    #return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float()
+    return torch.from_numpy(np.ascontiguousarray(img)).float()
 
 
 # convert single (HxWxC) to 4-dimensional torch tensor
