@@ -262,6 +262,8 @@ def thridNormaliztion(img):
     max_ = img.max()
     min_ = img.min()
     max_ = max(abs(max_), abs(min_))
+    if max_ == 0:
+        max_ = 1
     return img/(max_*0.33)
 
 
