@@ -1,3 +1,6 @@
-trainsets/DIV2K/
+trainsets/
 *.tar
 .spyproject/
+model_zoo/
+test_swinir/model_zoo
+*.pyc

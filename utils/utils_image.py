@@ -196,6 +196,7 @@ def imread_uint(path, n_channels=3):
     elif n_channels == 0:
         img = np.load(path)
         img = img.f.arr_0
+        img= img.reshape((img.shape[1], img.shape[0], 1))
     elif n_channels == 3:
         img = cv2.imread(path, cv2.IMREAD_UNCHANGED)  # BGR or G
         if img.ndim == 2:
@@ -316,8 +317,8 @@ def tensor2uint(img):
 
 # convert single (HxWxC) to 3-dimensional torch tensor
 def single2tensor3(img):
-    #return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float()
-    return torch.from_numpy(np.ascontiguousarray(img)).float()
+    return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float()
+    #return torch.from_numpy(np.ascontiguousarray(img)).float()
 
 
 # convert single (HxWxC) to 4-dimensional torch tensor

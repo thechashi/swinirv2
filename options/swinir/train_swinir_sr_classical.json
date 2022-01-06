@@ -20,7 +20,7 @@
       , "dataroot_H": "trainsets/earth1_ds/HR" // path of H training dataset. DIV2K (800 training images)
       , "dataroot_L": "trainsets/earth1_ds/LR_bicubic/X4"              // path of L training dataset
 
-      , "H_size": 96                   // 96/144|192/384 | 128/192/256/512. LR patch size is set to 48 or 64 when compared with RCAN or RRDB.
+      , "H_size": 96                  // 96/144|192/384 | 128/192/256/512. LR patch size is set to 48 or 64 when compared with RCAN or RRDB.
 
       , "dataloader_shuffle": true
       , "dataloader_num_workers": 16
@@ -37,8 +37,8 @@
 
   , "netG": {
     "net_type": "swinir" 
-    , "upscale": 2                      // 2 | 3  | 4 | 8
-    , "in_chans": 3 
+    , "upscale": 4                      // 2 | 3  | 4 | 8
+    , "in_chans": 1 
     , "img_size": 48                    // For fair comparison, LR patch size is set to 48 or 64 when compared with RCAN or RRDB.
     , "window_size": 8  
     , "img_range": 1.0 
@@ -74,8 +74,8 @@
     , "G_param_strict": true
     , "E_param_strict": true
 
-    , "checkpoint_test": 600           // for testing
-    , "checkpoint_save": 600           // for saving model
-    , "checkpoint_print": 200           // for print
+    , "checkpoint_test": 1000           // for testing
+    , "checkpoint_save": 1000           // for saving model
+    , "checkpoint_print": 500           // for print
   }
 }
