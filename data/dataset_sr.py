@@ -39,9 +39,8 @@ class DatasetSR(data.Dataset):
         # get H image
         # ------------------------------------
         H_path = self.paths_H[index]
-        img_H = util.imread_uint(H_path, 0)
-        #img_H = util.uint2single(img_H)
-        img_H = util.thridNormaliztion(img_H)
+        img_H = util.imread_uint(H_path, self.n_channels)
+        img_H = util.uint2single(img_H)
 
         # ------------------------------------
         # modcrop
@@ -56,9 +55,8 @@ class DatasetSR(data.Dataset):
             # directly load L image
             # --------------------------------
             L_path = self.paths_L[index]
-            img_L = util.imread_uint(L_path, 0)
-            #img_L = util.uint2single(img_L)
-            img_L = util.thridNormaliztion(img_L)
+            img_L = util.imread_uint(L_path, self.n_channels)
+            img_L = util.uint2single(img_L)
 
         else:
             # --------------------------------
@@ -73,7 +71,6 @@ class DatasetSR(data.Dataset):
         if self.opt['phase'] == 'train':
 
             H, W, C = img_L.shape
-            #H, W = img_L.shape
 
             # --------------------------------
             # randomly crop the L patch
@@ -81,14 +78,13 @@ class DatasetSR(data.Dataset):
             rnd_h = random.randint(0, max(0, H - self.L_size))
             rnd_w = random.randint(0, max(0, W - self.L_size))
             img_L = img_L[rnd_h:rnd_h + self.L_size, rnd_w:rnd_w + self.L_size, :]
-            #img_L = img_L[rnd_h:rnd_h + self.L_size, rnd_w:rnd_w + self.L_size]
 
             # --------------------------------
             # crop corresponding H patch
             # --------------------------------
             rnd_h_H, rnd_w_H = int(rnd_h * self.sf), int(rnd_w * self.sf)
             img_H = img_H[rnd_h_H:rnd_h_H + self.patch_size, rnd_w_H:rnd_w_H + self.patch_size, :]
-            #img_H = img_H[rnd_h_H:rnd_h_H + self.patch_size, rnd_w_H:rnd_w_H + self.patch_size]
+
             # --------------------------------
             # augmentation - flip and/or rotate
             # --------------------------------

@@ -6,6 +6,12 @@
 *[Computer Vision Lab](https://vision.ee.ethz.ch/the-institute.html), ETH Zurich, Switzerland*
 
 _______
+- **_News (2021-12-23)_**: Our techniques are adopted in [https://www.amemori.ai/](https://www.amemori.ai/).
+- **_News (2021-12-23)_**: Our new work for practical image denoising.
+
+- <img src="figs/palace.png" height="320px"/> <img src="figs/palace_HSCU.png" height="320px"/> 
+- [<img src="https://github.com/cszn/KAIR/raw/master/figs/denoising_02.png" height="256px"/>](https://imgsli.com/ODczMTc) 
+[<img src="https://github.com/cszn/KAIR/raw/master/figs/denoising_01.png" height="256px"/>](https://imgsli.com/ODczMTY) 
 - **_News (2021-09-09)_**: Add [main_download_pretrained_models.py](https://github.com/cszn/KAIR/blob/master/main_download_pretrained_models.py) to download pre-trained models.
 - **_News (2021-09-08)_**: Add [matlab code](https://github.com/cszn/KAIR/tree/master/matlab) to zoom local part of an image for the purpose of comparison between different results.
 - **_News (2021-09-07)_**: We upload [the training code](https://github.com/cszn/KAIR/blob/master/docs/README_SwinIR.md) of [SwinIR ![GitHub Stars](https://img.shields.io/github/stars/JingyunLiang/SwinIR?style=social)](https://github.com/JingyunLiang/SwinIR) and provide an [interactive online Colob demo for real-world image SR](https://colab.research.google.com/gist/JingyunLiang/a5e3e54bc9ef8d7bf594f6fee8208533/swinir-demo-on-real-world-image-sr.ipynb). Try to super-resolve your own images on Colab! <a href="https://colab.research.google.com/gist/JingyunLiang/a5e3e54bc9ef8d7bf594f6fee8208533/swinir-demo-on-real-world-image-sr.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="google colab logo"></a>
@@ -224,12 +230,14 @@ References
 title={SwinIR: Image Restoration Using Swin Transformer},
 author={Liang, Jingyun and Cao, Jiezhang and Sun, Guolei and Zhang, Kai and Van Gool, Luc and Timofte, Radu},
 booktitle={IEEE International Conference on Computer Vision Workshops},
+pages={1833--1844},
 year={2021}
 }
 @inproceedings{zhang2021designing,
 title={Designing a Practical Degradation Model for Deep Blind Image Super-Resolution},
 author={Zhang, Kai and Liang, Jingyun and Van Gool, Luc and Timofte, Radu},
 booktitle={IEEE International Conference on Computer Vision},
+pages={4791--4800},
 year={2021}
 }
 @article{zhang2021plug, % DPIR & DRUNet & IRCNN

@@ -23,7 +23,7 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 '''
 
 
-IMG_EXTENSIONS = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP', '.tif', '.npz']
+IMG_EXTENSIONS = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP', '.tif']
 
 
 def is_image_file(filename):
@@ -189,14 +189,9 @@ def mkdir_and_rename(path):
 def imread_uint(path, n_channels=3):
     #  input: path
     # output: HxWx3(RGB or GGG), or HxWx1 (G)
-    
     if n_channels == 1:
         img = cv2.imread(path, 0)  # cv2.IMREAD_GRAYSCALE
         img = np.expand_dims(img, axis=2)  # HxWx1
-    elif n_channels == 0:
-        img = np.load(path)
-        img = img.f.arr_0
-        img= img.reshape((img.shape[1], img.shape[0], 1))
     elif n_channels == 3:
         img = cv2.imread(path, cv2.IMREAD_UNCHANGED)  # BGR or G
         if img.ndim == 2:
@@ -259,14 +254,6 @@ def uint2single(img):
 
     return np.float32(img/255.)
 
-def thridNormaliztion(img):
-    max_ = img.max()
-    min_ = img.min()
-    max_ = max(abs(max_), abs(min_))
-    if max_ == 0:
-        max_ = 1
-    return img/(max_*0.33)
-
 
 def single2uint(img):
 
@@ -318,7 +305,6 @@ def tensor2uint(img):
 # convert single (HxWxC) to 3-dimensional torch tensor
 def single2tensor3(img):
     return torch.from_numpy(np.ascontiguousarray(img)).permute(2, 0, 1).float()
-    #return torch.from_numpy(np.ascontiguousarray(img)).float()
 
 
 # convert single (HxWxC) to 4-dimensional torch tensor
