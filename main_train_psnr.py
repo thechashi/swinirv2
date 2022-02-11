@@ -170,7 +170,10 @@ def main(json_path='options/train_msrresnet_psnr.json'):
                 break
             print()
             print('Inside main_train_psnr: ')
-            print('train_data LR shape: {} , HR shape: {}'.format(train_data['L'].shape, train_data['H'].shape))
+            print('LR: ')
+            util.print_tensor_details(train_data['L'])
+            print('HR: ')
+            util.print_tensor_details(train_data['H'])
             print()
             current_step += 1
 

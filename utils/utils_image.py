@@ -25,7 +25,13 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 IMG_EXTENSIONS = ['.jpg', '.JPG', '.jpeg', '.JPEG', '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP', '.tif']
 
-
+def print_tensor_details(x):
+    print('Shape: {}'.format(x.shape))
+    print('Data type: {}'.format(x.dtype))
+    print('Max : {}'.format(x.max()))
+    print('Min: {}'.format(x.min()))
+    print('Mean: {}'.format(x.mean()))
+    print('Std: {}'.format(x.std()))
 def is_image_file(filename):
     return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
 

@@ -9,7 +9,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.checkpoint as checkpoint
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
-
+from utils import utils_image as util
 
 class Mlp(nn.Module):
     def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=nn.GELU, drop=0.):
@@ -24,13 +24,19 @@ class Mlp(nn.Module):
     def forward(self, x):
         print()
         print('Inside Mlp forward: ')
-        print('x shape: {}'.format(x.shape))
+        print('x before:')
+        util.print_tensor_details(x)
         print()
         x = self.fc1(x)
         x = self.act(x)
         x = self.drop(x)
         x = self.fc2(x)
         x = self.drop(x)
+        print()
+        print('Inside Mlp forward: ')
+        print('x after:')
+        util.print_tensor_details(x)
+        print()
         return x
 
 
@@ -123,7 +129,8 @@ class WindowAttention(nn.Module):
         """
         print()
         print('Inside WindowAttention forward: ')
-        print('x shape: {}'.format(x.shape))
+        print('x before:')
+        util.print_tensor_details(x)
         print()
         B_, N, C = x.shape
         qkv = self.qkv(x).reshape(B_, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
@@ -150,6 +157,11 @@ class WindowAttention(nn.Module):
         x = (attn @ v).transpose(1, 2).reshape(B_, N, C)
         x = self.proj(x)
         x = self.proj_drop(x)
+        print()
+        print('Inside WindowAttention forward: ')
+        print('x after:')
+        util.print_tensor_details(x)
+        print()
         return x
 
     def extra_repr(self) -> str:
@@ -247,7 +259,8 @@ class SwinTransformerBlock(nn.Module):
     def forward(self, x, x_size):
         print()
         print('Inside SwinTransformerLayer forward: ')
-        print('x shape: {}'.format(x.shape))
+        print('x before:')
+        util.print_tensor_details(x)
         print()
         H, W = x_size
         B, L, C = x.shape
@@ -287,6 +300,11 @@ class SwinTransformerBlock(nn.Module):
         # FFN
         x = shortcut + self.drop_path(x)
         x = x + self.drop_path(self.mlp(self.norm2(x)))
+        print()
+        print('Inside SwinTransformerLayer forward: ')
+        print('x after:')
+        util.print_tensor_details(x)
+        print()
 
         return x
 
@@ -409,7 +427,8 @@ class BasicLayer(nn.Module):
     def forward(self, x, x_size):
         print()
         print('Inside BasicLayer forward: ')
-        print('x shape: {}'.format(x.shape))
+        print('x before:')
+        util.print_tensor_details(x)
         print()
         for blk in self.blocks:
             if self.use_checkpoint:
@@ -418,6 +437,11 @@ class BasicLayer(nn.Module):
                 x = blk(x, x_size)
         if self.downsample is not None:
             x = self.downsample(x)
+        print()
+        print('Inside BasicLayer forward: ')
+        print('x after:')
+        util.print_tensor_details(x)
+        print()
         return x
 
     def extra_repr(self) -> str:
@@ -497,7 +521,8 @@ class RSTB(nn.Module):
     def forward(self, x, x_size):
         print()
         print('Inside RSTB forward: ')
-        print('x shape: {}'.format(x.shape))
+        print('x before:')
+        util.print_tensor_details(x)
         print()
         return self.patch_embed(self.conv(self.patch_unembed(self.residual_group(x, x_size), x_size))) + x
 
@@ -542,9 +567,19 @@ class PatchEmbed(nn.Module):
             self.norm = None
 
     def forward(self, x):
+        print()
+        print('Inside PathcEmbed forward: ')
+        print('x before:')
+        util.print_tensor_details(x)
+        print()
         x = x.flatten(2).transpose(1, 2)  # B Ph*Pw C
         if self.norm is not None:
             x = self.norm(x)
+        print()
+        print('Inside PathcEmbed forward: ')
+        print('x after:')
+        util.print_tensor_details(x)
+        print()
         return x
 
     def flops(self):
@@ -580,8 +615,18 @@ class PatchUnEmbed(nn.Module):
         self.embed_dim = embed_dim
 
     def forward(self, x, x_size):
+        print()
+        print('Inside PatchUnEmbed forward: ')
+        print('x before:')
+        util.print_tensor_details(x)
+        print()
         B, HW, C = x.shape
         x = x.transpose(1, 2).view(B, self.embed_dim, x_size[0], x_size[1])  # B Ph*Pw C
+        print()
+        print('Inside PatchUnEmbed forward: ')
+        print('x after:')
+        util.print_tensor_details(x)
+        print()
         return x
 
     def flops(self):
@@ -810,7 +855,8 @@ class SwinIR(nn.Module):
     def forward_features(self, x):
         print()
         print('Inside SwinIR forward_features: ')
-        print('x shape: {}'.format(x.shape))
+        print('x before:')
+        util.print_tensor_details(x)
         print()
         x_size = (x.shape[2], x.shape[3])
         x = self.patch_embed(x)
@@ -823,13 +869,18 @@ class SwinIR(nn.Module):
 
         x = self.norm(x)  # B L C
         x = self.patch_unembed(x, x_size)
-
+        print()
+        print('Inside SwinIR forward_features: ')
+        print('x after:')
+        util.print_tensor_details(x)
+        print()
         return x
 
     def forward(self, x):
         print()
         print('Inside SwinIR forward: ')
-        print('x shape: {}'.format(x.shape))
+        print('x before:')
+        util.print_tensor_details(x)
         print()
         H, W = x.shape[2:]
         x = self.check_image_size(x)
@@ -863,7 +914,11 @@ class SwinIR(nn.Module):
             x = x + self.conv_last(res)
 
         x = x / self.img_range + self.mean
-
+        print()
+        print('Inside SwinIR forward: ')
+        print('x after:')
+        util.print_tensor_details(x)
+        print()
         return x[:, :, :H*self.upscale, :W*self.upscale]
 
     def flops(self):
