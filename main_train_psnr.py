@@ -170,7 +170,7 @@ def main(json_path='options/train_msrresnet_psnr.json'):
                 break
             print()
             print('Inside main_train_psnr: ')
-            print('train_data shape: {}'.format(train_data.shape))
+            print('train_data : {}'.format(train_data))
             print()
             current_step += 1
 
