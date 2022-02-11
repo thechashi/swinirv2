@@ -29,8 +29,6 @@ from models.select_model import define_Model
 # https://github.com/xinntao/BasicSR
 # --------------------------------------------
 '''
-DIV2K_test_LR_bicubic  DIV2K_train_HR          DIV2K_train_LR_unknown
-DIV2K_test_LR_unknown  DIV2K_train_LR_bicubic
 
 def main(json_path='options/train_msrresnet_psnr.json'):
 
