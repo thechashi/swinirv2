@@ -22,6 +22,10 @@ class Mlp(nn.Module):
         self.drop = nn.Dropout(drop)
 
     def forward(self, x):
+        print()
+        print('Inside Mlp forward: ')
+        print('x shape: {}'.format(x.shape))
+        print()
         x = self.fc1(x)
         x = self.act(x)
         x = self.drop(x)
@@ -117,6 +121,10 @@ class WindowAttention(nn.Module):
             x: input features with shape of (num_windows*B, N, C)
             mask: (0/-inf) mask with shape of (num_windows, Wh*Ww, Wh*Ww) or None
         """
+        print()
+        print('Inside WindowAttention forward: ')
+        print('x shape: {}'.format(x.shape))
+        print()
         B_, N, C = x.shape
         qkv = self.qkv(x).reshape(B_, N, 3, self.num_heads, C // self.num_heads).permute(2, 0, 3, 1, 4)
         q, k, v = qkv[0], qkv[1], qkv[2]  # make torchscript happy (cannot use tensor as tuple)
@@ -237,6 +245,10 @@ class SwinTransformerBlock(nn.Module):
         return attn_mask
 
     def forward(self, x, x_size):
+        print()
+        print('Inside SwinTransformerLayer forward: ')
+        print('x shape: {}'.format(x.shape))
+        print()
         H, W = x_size
         B, L, C = x.shape
         # assert L == H * W, "input feature has wrong size"
@@ -395,6 +407,10 @@ class BasicLayer(nn.Module):
             self.downsample = None
 
     def forward(self, x, x_size):
+        print()
+        print('Inside BasicLayer forward: ')
+        print('x shape: {}'.format(x.shape))
+        print()
         for blk in self.blocks:
             if self.use_checkpoint:
                 x = checkpoint.checkpoint(blk, x, x_size)
@@ -479,6 +495,10 @@ class RSTB(nn.Module):
             norm_layer=None)
 
     def forward(self, x, x_size):
+        print()
+        print('Inside RSTB forward: ')
+        print('x shape: {}'.format(x.shape))
+        print()
         return self.patch_embed(self.conv(self.patch_unembed(self.residual_group(x, x_size), x_size))) + x
 
     def flops(self):
@@ -788,6 +808,10 @@ class SwinIR(nn.Module):
         return x
 
     def forward_features(self, x):
+        print()
+        print('Inside SwinIR forward_features: ')
+        print('x shape: {}'.format(x.shape))
+        print()
         x_size = (x.shape[2], x.shape[3])
         x = self.patch_embed(x)
         if self.ape:
@@ -803,6 +827,10 @@ class SwinIR(nn.Module):
         return x
 
     def forward(self, x):
+        print()
+        print('Inside SwinIR forward: ')
+        print('x shape: {}'.format(x.shape))
+        print()
         H, W = x.shape[2:]
         x = self.check_image_size(x)
 
