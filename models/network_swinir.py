@@ -267,19 +267,41 @@ class SwinTransformerBlock(nn.Module):
         # assert L == H * W, "input feature has wrong size"
 
         shortcut = x
+        print()
+        print('Before norm1: ')
+        print('x before:')
+        util.print_tensor_details(x)
+        print()
         x = self.norm1(x)
+        print()
+        print('Before view transform after norm 1: ')
+        print('x before:')
+        util.print_tensor_details(x)
+        print()
         x = x.view(B, H, W, C)
-
+        print()
+        print('After view transform after norm 1: ')
+        print('x before:')
+        util.print_tensor_details(x)
+        print()
         # cyclic shift
         if self.shift_size > 0:
             shifted_x = torch.roll(x, shifts=(-self.shift_size, -self.shift_size), dims=(1, 2))
         else:
             shifted_x = x
 
+
         # partition windows
         x_windows = window_partition(shifted_x, self.window_size)  # nW*B, window_size, window_size, C
+        print()
+        print('x_windows before:')
+        util.print_tensor_details(x_windows)
+        print()
         x_windows = x_windows.view(-1, self.window_size * self.window_size, C)  # nW*B, window_size*window_size, C
-
+        print()
+        print('x_windows after:')
+        util.print_tensor_details(x_windows)
+        print()
         # W-MSA/SW-MSA (to be compatible for testing on images whose shapes are the multiple of window size
         if self.input_resolution == x_size:
             attn_windows = self.attn(x_windows, mask=self.attn_mask)  # nW*B, window_size*window_size, C
