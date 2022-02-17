@@ -14,6 +14,11 @@ from utils import utils_image as util
 class Mlp(nn.Module):
     def __init__(self, in_features, hidden_features=None, out_features=None, act_layer=nn.GELU, drop=0.):
         super().__init__()
+        print('MLP params: ')
+        print('in_features: ', in_features)
+        print('hidden_features:', hidden_features)
+        print('out_features: ', out_features)
+        print('drop: ', drop)
         out_features = out_features or in_features
         hidden_features = hidden_features or in_features
         self.fc1 = nn.Linear(in_features, hidden_features)
@@ -89,6 +94,13 @@ class WindowAttention(nn.Module):
     def __init__(self, dim, window_size, num_heads, qkv_bias=True, qk_scale=None, attn_drop=0., proj_drop=0.):
 
         super().__init__()
+        print('WIndowAttention params: ')
+        print('dim: ', dim)
+        print('window_size:', )
+        print('num_heads: ', window_size)
+        print('proj_drop: ', proj_drop)
+        print('qkv_bias: ', qkv_bias)
+        print('qk_scale: ', qk_scale)
         self.dim = dim
         self.window_size = window_size  # Wh, Ww
         self.num_heads = num_heads
