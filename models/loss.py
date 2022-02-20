@@ -119,6 +119,9 @@ class PerceptualLoss(nn.Module):
         Returns:
             Tensor: Forward results.
         """
+        print("Inside Perceptual Loss")
+        print(x.shape)
+        print()
         x_vgg, gt_vgg = self.vgg(x), self.vgg(gt.detach())
         loss = 0.0
         if isinstance(x_vgg, list):
