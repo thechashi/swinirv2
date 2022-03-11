@@ -161,7 +161,7 @@ if __name__ == '__main__':
 
 
 
-def train(trainset_path, epoch=10, loss_kernel_size=3, ):
+def train(trainset_path, epochs=10, loss_kernel_size=3 ):
     # read file names
     net = Net()
 
@@ -173,7 +173,7 @@ def train(trainset_path, epoch=10, loss_kernel_size=3, ):
     
 
             
-    for epoch in range(50):  
+    for epoch in range(epochs):  
 
         running_loss = 0.0
         net.train(True)
@@ -207,5 +207,6 @@ def train(trainset_path, epoch=10, loss_kernel_size=3, ):
             
     print('Finished Training')
     
-
+if __name__ == "__main__":
+    train('../trainsets/earth1_samples/earth1_samples_train', epochs=10)
 
