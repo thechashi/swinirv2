@@ -94,7 +94,7 @@ class WindowAttention(nn.Module):
     def __init__(self, dim, window_size, num_heads, qkv_bias=True, qk_scale=None, attn_drop=0., proj_drop=0.):
 
         super().__init__()
-        print('WIndowAttention params: ')
+        print('WindowAttention params: ')
         print('dim: ', dim)
         print('window_size:', window_size)
         print('num_heads: ', num_heads)
