@@ -209,8 +209,8 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
                 i += 1
                 if i % 20 == 1:    # print every 20 mini-batches
                     print(f'[{epoch + 1}, {i:5d}] loss: {running_loss/i :.6f}')
-                if min_loss > running_loss:
-                    min_loss = running_loss
+                if min_loss > (running_loss/i):
+                    min_loss = (running_loss/i)
                     print(f'Saving model. Loss decreased. [{epoch + 1}, {i:5d}] loss: {running_loss/i :.6f}')
                     torch.save(net.state_dict(), "f2g_trained.pt")
         running_loss = 0.0
