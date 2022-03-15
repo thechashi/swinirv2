@@ -41,7 +41,7 @@ def test(model_path, input_path):
     with torch.no_grad():
         input_path = np.load(input_path)
         image = input_path.f.arr_0
-        cv2.imwrite("before_normalization.jpg", np.array(image.to("cpu")))
+        cv2.imwrite("before_normalization.jpg", np.array(image))
         image = torch.tensor(image).reshape((1,1,256,256))
         image = (image/300890.0)*3
         cv2.imwrite("before_normalization.jpg", np.array(image.to("cpu")))
