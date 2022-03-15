@@ -186,7 +186,7 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
                 file_path = os.path.join(trainset_path, filename)
                 image = np.load(file_path)
                 image = image.f.arr_0
-                image = torch.tensor(image)
+                image = torch.tensor(image).reshape((1,1,256,256))
                 print(image.shape)
                 image = image.to(device)
                 
