@@ -212,7 +212,7 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
                 if min_loss > running_loss:
                     min_loss = running_loss
                     print(f'Saving model. Loss decreased. [{epoch + 1}, {i:5d}] loss: {running_loss/i :.6f}')
-                    torch.save(net.save_dict(), "f2g_trained.pt")
+                    torch.save(net.state_dict(), "f2g_trained.pt")
         running_loss = 0.0
                 
             
