@@ -122,7 +122,8 @@ class DistanceLoss(nn.Module):
         super().__init__()
         self.kernel_size = kernel_size
         self.loss_weight = loss_weight
-        self.l2_loss = nn.MSELoss()
+        #self.l2_loss = nn.MSELoss()
+        self.l1_loss = nn.L1Loss()
 
     def forward(self, sr_tensor, hr_tensor):
         """
@@ -162,6 +163,7 @@ if __name__ == '__main__':
 
 
 def train(trainset_path, epochs=10, loss_kernel_size=3 ):
+    print("Starting training...")
     # read file names
     net = Net()
 
@@ -174,7 +176,7 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
 
             
     for epoch in range(epochs):  
-
+        print("Epoch: {}".format(epoch))
         running_loss = 0.0
         net.train(True)
         net = net.to(device)
