@@ -51,6 +51,6 @@ def test(model_path, input_path):
         im3 = Image.fromarray(output)
         im3.save("output.png")
 if __name__ == "__main__":
-    
+    test()
         
         
