@@ -140,8 +140,9 @@ class DistanceLoss(nn.Module):
 
         del neigh_obj
 
-        l2_loss = self.l2_loss(sr_distance, hr_distance) * self.loss_weight
-        return l2_loss
+        #l2_loss = self.l2_loss(sr_distance, hr_distance) * self.loss_weight
+        l1_loss = self.l1_loss(sr_distance, hr_distance) * self.loss_weight
+        return l1_loss
 
 
 '''
