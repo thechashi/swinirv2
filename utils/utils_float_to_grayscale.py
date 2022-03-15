@@ -188,6 +188,7 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
                 image = np.load(file_path)
                 image = image.f.arr_0
                 image = torch.tensor(image).reshape((1,1,256,256))
+                image = (image/300890.0)*3
                 print(image.shape)
                 image = image.to(device)
                 
@@ -196,6 +197,7 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
 
                 # forward + backward + optimize
                 prediction = net(image)
+                prediction = prediction * 6.0
                 loss = criterion(prediction, image)
                 print(loss.item())
                 loss.backward()
@@ -203,10 +205,11 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
 
                 # print statistics
                 running_loss += loss.item()
-                if i % 2 == 0:    # print every 2000 mini-batches
-                    print(f'[{epoch + 1}, {i + 1:5d}] loss: {running_loss/10 :.6f}')
-                    running_loss = 0.0
                 i += 1
+                if i % 20 == 1:    # print every 20 mini-batches
+                    print(f'[{epoch + 1}, {i:5d}] loss: {running_loss/i :.6f}')
+        running_loss = 0.0
+                
             
     print('Finished Training')
     
