@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-
+import math
 class Net(nn.Module):
     def __init__(self):
         super().__init__()
@@ -179,6 +179,7 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
     for epoch in range(epochs):  
         print("Epoch: {}".format(epoch))
         running_loss = 0.0
+        min_loss = math.inf
         net.train(True)
         net = net.to(device)
         i = 0
@@ -208,6 +209,9 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
                 i += 1
                 if i % 20 == 1:    # print every 20 mini-batches
                     print(f'[{epoch + 1}, {i:5d}] loss: {running_loss/i :.6f}')
+                if min_loss > running_loss:
+                    min_loss = running_loss
+                    torch.save(net.save_dict(), "f2g_trained.pt")
         running_loss = 0.0
                 
             
