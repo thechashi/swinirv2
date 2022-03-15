@@ -41,15 +41,16 @@ def test(model_path, input_path):
         input_path = np.load(input_path)
         image = input_path.f.arr_0
         im1 = Image.fromarray(image)
-        im1.save("before_normalization.png")
+        im1.save("before_normalization.jpg")
         image = torch.tensor(image).reshape((1,1,256,256))
         image = (image/300890.0)*3
         im2 = Image.fromarray(image)
-        im2.save("after_normalization.png")
+        im2.save("after_normalization.jpg")
         image = image.to(device)
         output = model(image)
+        print(output.shape)
         im3 = Image.fromarray(output)
-        im3.save("output.png")
+        im3.save("output.jpg")
 if __name__ == "__main__":
     test()
         
