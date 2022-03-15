@@ -219,5 +219,5 @@ def train(trainset_path, epochs=10, loss_kernel_size=3 ):
     print('Finished Training')
     
 if __name__ == "__main__":
-    train('../trainsets/earth1_samples/earth1_samples_train', epochs=10)
+    train('../trainsets/earth1_samples/earth1_100', epochs=10)
 
