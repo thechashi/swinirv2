@@ -44,11 +44,11 @@ def test(model_path, input_path):
         cv2.imwrite("before_normalization.jpg", np.array(image))
         image = torch.tensor(image).reshape((1,1,256,256))
         image = (image/300890.0)*3
-        cv2.imwrite("before_normalization.jpg", np.array(image.to("cpu")))
+        cv2.imwrite("before_normalization.jpg", np.array(image[0][0].to("cpu")))
         image = image.to(device)
         output = model(image)
         print(output.shape)
-        cv2.imwrite("output.jpg", np.array(output.to("cpu")))
+        cv2.imwrite("output.jpg", np.array(output[0][0].to("cpu")))
 if __name__ == "__main__":
     test()
         
