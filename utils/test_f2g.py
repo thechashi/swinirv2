@@ -7,6 +7,7 @@ import torch.optim as optim
 import math
 from PIL import Image
 import click
+import  cv2
 
 class Net(nn.Module):
     def __init__(self):
@@ -40,17 +41,14 @@ def test(model_path, input_path):
     with torch.no_grad():
         input_path = np.load(input_path)
         image = input_path.f.arr_0
-        im1 = Image.fromarray(np.array(image))
-        im1.save("before_normalization.jpg", mode="F")
+        cv2.imwrite("before_normalization.jpg", np.array(image))
         image = torch.tensor(image).reshape((1,1,256,256))
         image = (image/300890.0)*3
-        im2 = Image.fromarray(image)
-        im2.save("after_normalization.jpg", mode="F")
+        cv2.imwrite("before_normalization.jpg", np.array(image))
         image = image.to(device)
         output = model(image)
         print(output.shape)
-        im3 = Image.fromarray(np.array(output))
-        im3.save("output.jpg", mode="F")
+        cv2.imwrite("output.jpg", np.array(image))
 if __name__ == "__main__":
     test()
         
