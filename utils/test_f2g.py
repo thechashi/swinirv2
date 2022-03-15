@@ -41,14 +41,14 @@ def test(model_path, input_path):
     with torch.no_grad():
         input_path = np.load(input_path)
         image = input_path.f.arr_0
-        cv2.imwrite("before_normalization.jpg", np.array(image))
+        cv2.imwrite("before_normalization.jpg", np.array(image.to("cpu")))
         image = torch.tensor(image).reshape((1,1,256,256))
         image = (image/300890.0)*3
-        cv2.imwrite("before_normalization.jpg", np.array(image))
+        cv2.imwrite("before_normalization.jpg", np.array(image.to("cpu")))
         image = image.to(device)
         output = model(image)
         print(output.shape)
-        cv2.imwrite("output.jpg", np.array(image))
+        cv2.imwrite("output.jpg", np.array(output.to("cpu")))
 if __name__ == "__main__":
     test()
         
