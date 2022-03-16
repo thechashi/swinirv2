@@ -43,7 +43,7 @@ def test(model_path, input_path):
         image = input_path.f.arr_0
         cv2.imwrite("before_normalization.jpg", np.array(image))
         image = torch.tensor(image).reshape((1,1,256,256))
-        image = (image/300890.0)*3
+        image = (image/30089.0)*3
         cv2.imwrite("after_normalization.jpg", np.array(image[0][0].to("cpu")))
         image = image.to(device)
         output = model(image)
